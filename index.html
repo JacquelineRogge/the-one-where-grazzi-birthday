@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday Grazzi ✨</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: white;
+      background: radial-gradient(circle at top, #4b1d78 0, #090015 35%, #02040f 100%);
+      overflow-x: hidden;
+    }
+    .stars {
+      position: fixed; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#f9c6ff 1px, transparent 1px),
+        radial-gradient(#a6f4ff 1px, transparent 1px);
+      background-size: 70px 70px, 110px 110px, 160px 160px;
+      animation: drift 20s linear infinite;
+      opacity: .45;
+    }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(80px); } }
+    .wrap {
+      width: min(1000px, 94vw);
+      margin: 0 auto;
+      padding: 34px 0 60px;
+      position: relative;
+      z-index: 2;
+    }
+    .card {
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 34px;
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 24px 80px rgba(0,0,0,.5);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+    .hero {
+      padding: 42px 24px 30px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,70,170,.22), rgba(80,230,255,.14));
+    }
+    .badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      padding: 10px 18px;
+      background: rgba(0,0,0,.22);
+      color: #d8fbff;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 5.8rem);
+      line-height: .95;
+      color: #ffb8e8;
+      text-shadow: 0 0 24px rgba(255,86,199,.55);
+      letter-spacing: .04em;
+    }
+    .subtitle {
+      max-width: 760px;
+      margin: 20px auto 0;
+      font-size: clamp(1.05rem, 2.4vw, 1.55rem);
+      color: #fff1a8;
+      font-style: italic;
+    }
+    .section { padding: 28px; }
+    .episode {
+      border-radius: 26px;
+      padding: 24px;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(110,230,255,.22);
+      font-size: 1.22rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+    .opening {
+      border-radius: 24px;
+      background: linear-gradient(90deg, rgba(255,57,162,.22), rgba(36,218,255,.18));
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 18px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .mini {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.10);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .mini div { font-size: 2.2rem; margin-bottom: 8px; }
+    .quote {
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 26px;
+      background: rgba(255,255,255,.08);
+      padding: 22px;
+      margin-top: 20px;
+    }
+    .quote strong { color: #aaf5ff; font-size: 1.35rem; }
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .photos img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      transition: transform .25s ease;
+    }
+    .photos img:hover { transform: scale(1.04) rotate(-1deg); }
+    .buttonrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 22px;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(90deg, #ff4eb8, #7d4dff);
+      box-shadow: 0 12px 32px rgba(169,63,255,.35);
+    }
+    button.secondary { background: linear-gradient(90deg, #11bad5, #5357ff); }
+    .eggs {
+      border-radius: 26px;
+      background: rgba(255,255,255,.08);
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .eggs p { font-size: 1.08rem; margin: 10px 0; }
+    .final {
+      text-align: center;
+      color: #ddd;
+      font-style: italic;
+      padding: 0 28px 32px;
+    }
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 18px;
+      background: #fff;
+      opacity: .9;
+      pointer-events: none;
+      animation: fall 2.8s linear forwards;
+      z-index: 5;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+	.photo-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  transition: transform .35s ease;
+}
+
+.photo-card:hover {
+  transform: scale(1.04) rotate(-1deg);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  border-radius: 22px;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.15),
+    transparent
+  );
+
+  color: white;
+  font-size: .95rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.photo-card:hover .caption {
+  opacity: 1;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 74px;
+  height: 42px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+
+  background-color: #dcdcdc;
+
+  transition: .4s;
+
+  border-radius: 999px;
+
+  box-shadow:
+    inset 0 0 5px rgba(0,0,0,.15),
+    0 2px 6px rgba(0,0,0,.2);
+}
+
+.slider:before {
+
+  position: absolute;
+  content: "";
+
+  height: 34px;
+  width: 34px;
+
+  left: 4px;
+  bottom: 4px;
+
+  background: white;
+
+  border-radius: 50%;
+
+  transition: .4s;
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.25);
+}
+
+input:checked + .slider {
+  background-color: #41d95d;
+}
+
+input:checked + .slider:before {
+  transform: translateX(32px);
+}
+.progress-box {
+
+  width: 100%;
+
+  height: 18px;
+
+  background: rgba(255,255,255,.20);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  margin-top: 18px;
+
+  margin-bottom: 12px;
+
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,.25);
+
+}
+
+.progress-bar {
+
+  width: 100%;
+
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff66c4,
+      #ffe066,
+      #66e3ff
+    );
+
+  background-size: 200% 100%;
+
+  animation:
+    happinessMove 2s linear infinite,
+    happinessGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes happinessMove {
+
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 200% 0%;
+  }
+
+}
+
+@keyframes happinessGlow {
+
+  from {
+    filter: brightness(1);
+  }
+
+  to {
+    filter: brightness(1.35);
+  }
+
+}
+.progress-box {
+
+  width: 100%;
+  height: 18px;
+
+  background: rgba(255,255,255,.15);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  margin: 16px 0;
+}
+
+.progress-bar {
+
+  width: 0%;
+
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff66c4,
+      #ffe066,
+      #66e3ff
+    );
+
+  transition: width 2s ease;
+}
+
+.activate-btn {
+
+  margin-top: 12px;
+
+  border: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff66c4,
+      #7b61ff
+    );
+
+  color: white;
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition: .3s;
+}
+
+.activate-btn:hover {
+  transform: scale(1.05);
+}
+.rocket-zone {
+
+  position: relative;
+
+  height: 90px;
+
+  overflow: hidden;
+
+  margin-bottom: 10px;
+}
+
+#rocket {
+
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 3rem;
+
+  transition:
+    transform 2s ease-in,
+    opacity 2s ease-in;
+}
+
+#rocket {
+
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 3rem;
+
+}
+
+#rocket.launch {
+
+  animation:
+    rocketTrip 4s ease-in-out forwards;
+}
+
+@keyframes rocketTrip {
+
+  0% {
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+
+    opacity: 1;
+  }
+
+  25% {
+
+    transform:
+      translateX(180px)
+      translateY(-220px)
+      rotate(25deg)
+      scale(1.6);
+
+    opacity: .8;
+  }
+
+  50% {
+
+    transform:
+      translateX(400px)
+      translateY(-420px)
+      rotate(45deg)
+      scale(.6);
+
+    opacity: 0;
+  }
+
+  70% {
+
+    transform:
+      translateX(-400px)
+      translateY(-420px)
+      rotate(-45deg)
+      scale(.6);
+
+    opacity: 0;
+  }
+
+  100% {
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+
+    opacity: 1;
+  }
+
+}
+
+.activate-btn {
+
+  margin-top: 14px;
+
+  border: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00c6ff,
+      #7b61ff
+    );
+
+  color: white;
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+.friends-card {
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: .5s;
+
+}
+
+.friends-card.active {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,105,180,.25),
+      rgba(255,230,120,.18),
+      rgba(102,227,255,.18)
+    );
+
+  box-shadow:
+    0 0 30px rgba(255,105,180,.35);
+
+  transform: scale(1.02);
+}
+
+.friends-icon {
+
+  font-size: 3rem;
+
+  margin-bottom: 12px;
+
+  transition: .5s;
+}
+
+.friends-card.active .friends-icon {
+
+  transform:
+    rotate(-8deg)
+    scale(1.15);
+
+  filter:
+    drop-shadow(0 0 10px #ff7bd5);
+}
+
+.friends-dots {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 16px;
+}
+
+.friends-dots span {
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  opacity: .3;
+
+  transition: .4s;
+}
+
+.friends-dots span:nth-child(1) {
+  background: #ff4d4d;
+}
+
+.friends-dots span:nth-child(2) {
+  background: #ffd24d;
+}
+
+.friends-dots span:nth-child(3) {
+  background: #4dd2ff;
+}
+
+.friends-dots span:nth-child(4) {
+  background: #ff66c4;
+}
+
+.friends-dots span:nth-child(5) {
+  background: #7dff7d;
+}
+
+.friends-dots span:nth-child(6) {
+  background: #b366ff;
+}
+
+.friends-card.active .friends-dots span {
+
+  opacity: 1;
+
+  transform: scale(1.3);
+
+  animation:
+    dotsPulse 1s infinite alternate;
+}
+
+@keyframes dotsPulse {
+
+  from {
+
+    transform:
+      scale(1);
+
+  }
+
+  to {
+
+    transform:
+      scale(1.45);
+
+  }
+
+}
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <main class="wrap">
+    <article class="card">
+      <header class="hero">
+        <div class="badge">🎬 The One Where Grazzi Turns More Fabulous</div>
+        <h1>Happy Birthday<br>Grazzi ✨</h1>
+        <p class="subtitle">“I’ll be there for you…” — mesmo nas invasões alienígenas, paradoxos temporais e maratonas infinitas de Friends 💜</p>
+        <div class="buttonrow">
+          <button onclick="playBirthday()">🎵 Tocar música</button>
+          <button class="secondary" onclick="surprise()">🛸 Botão surpresa</button>
+        </div>
+      </header>
+
+      <section class="section">
+        <div class="opening">
+          <h2>🚀 Previously on: As Aventuras de Grazzi & Friends</h2>
+          <p>Carregando memórias de todas as linhas do tempo...</p>
+        </div>
+        <div class="episode">
+          Minha querida Grazzi,<br><br>
+          que sua vida continue sendo uma mistura perfeita entre cafés longos e conversas sinceras,
+          aventuras dignas de ficção científica, piadas bobas que fazem rir até chorar,
+          e muito amor em cada episódio da sua história.<br><br>
+          Que nunca faltem amigos doidos, referências nerds totalmente desnecessárias,
+          vinho bom, teorias absurdas e motivos para comemorar. 💜
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid">
+		  <div class="mini friends-card" id="friendsCard"><div class="friends-icon">☕</div><br><strong>Modo Friends</strong><br><br><label class="switch"><input type="checkbox" id="toggleFriends"><span class="slider"></span></label><p id="friendsStatus">Desativado</p><div class="friends-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="mini"><div class="rocket-zone"><div id="rocket">🛸</div></div><strong>Viagem intergaláctica</strong><p id="travelStatus">aguardando autorização...</p><button class="activate-btn" onclick="launchRocket()">🚀 Autorizar viagem</button></div>
+		  <div class="mini"><div>🍰</div><strong>Nível de felicidade</strong><div class="progress-box"><div class="progress-bar" id="happinessBar"></div></div><p id="happinessText">aguardando ativação...</p><button class="activate-btn" onclick="activateHappiness()"> ✨ Ativar felicidade infinita
+
+  </button>
+        </div>
+		  </div>
+
+   
+
+        <div class="quote">
+          <p>✨ Mensagem do multiverso:</p>
+          <strong id="quoteText">Você é o verdadeiro Central Perk da amizade: sempre acolhedora e cheia de boas conversas.</strong>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>📸 Episódios favoritos da nossa amizade</h2>
+       <div class="photos">
+
+  <div class="photo-card">
+    <img src="photos/1.png" alt="Memória da amizade 1" loading="lazy">
+    <div class="caption">☕ The One With The Best Friends</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/2.png" alt="Memória da amizade 2" loading="lazy">
+    <div class="caption">🚀 Episódio desbloqueado: famílias incríveis</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/3.png" alt="Memória da amizade 3" loading="lazy">
+    <div class="caption">✨ Glamour intergaláctico ativado</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/4.png" alt="Memória da amizade 4" loading="lazy">
+    <div class="caption">🌎 Missão Montreal concluída</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/5.png" alt="Memória da amizade 5" loading="lazy">
+    <div class="caption">💜 Universo paralelo: churrasco perfeito</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/6.png" alt="Memória da amizade 6" loading="lazy">
+    <div class="caption">🎬 Temporada: estética impecável</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/7.png" alt="Memória da amizade 7" loading="lazy">
+    <div class="caption">😂 The One Where We Couldn't Stop Laughing</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/8.png" alt="Memória da amizade 8" loading="lazy">
+    <div class="caption">🦇 Pequeno herói desbloqueado</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/9.png" alt="Memória da amizade 9" loading="lazy">
+    <div class="caption">🚴‍♀️ Passeio oficial do multiverso</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/10.png" alt="Memória da amizade 10" loading="lazy">
+    <div class="caption">✨ Friendship spa day</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/11.png" alt="Memória da amizade 11" loading="lazy">
+    <div class="caption">💫 Red carpet da amizade</div>
+  </div>
+
+  <div class="photo-card">
+    <img src="photos/12.png" alt="Memória da amizade 12" loading="lazy">
+    <div class="caption">🛸 Energia caótica perfeita</div>
+  </div>
+
+</div>
+      </section>
+
+      <section class="section">
+        <div class="eggs">
+          <h2>🪐 Easter eggs secretos desbloqueados</h2>
+          <p>☕ Nível de amizade: Monica compartilhando comida voluntariamente.</p>
+          <p>🚀 Missão concluída: sobreviver à vida adulta juntas.</p>
+          <p>🛸 Teoria confirmada: Grazzi é a personagem principal.</p>
+          <p>🎬 Temporadas renovadas automaticamente para sempre.</p>
+        </div>
+      </section>
+
+      <p class="final">Feito especialmente para Grazzi 💜 com carinho, humor e uma pequena quantidade de energia cósmica ✨</p>
+	  <p class="final">Jaqtinha</p>
+    </article>
+  </main>
+
+  <audio id="song" preload="auto" src="music/birthday.mp3"></audio>
+
+  <script>
+const quotes = [
+    "☕ Você é o verdadeiro Central Perk da amizade: sempre acolhedora e cheia de boas conversas.",
+    "🛸 Em qualquer galáxia, você seria oficialmente considerada uma amiga lendária.",
+    "🎂 Poderíamos ESTAR comemorando seu aniversário de um jeito mais divertido?!",
+    "👽 Cientificamente comprovado: você melhora qualquer linha do tempo.",
+    "📺 Sua amizade merece no mínimo 10 temporadas e vários episódios especiais.",
+  ];
+  
+    const introLines = [
+  "✨ The One Where Grazzi Turns More Fabulous ✨",
+  "🚀 Previously on: The Adventures of Grazzi & Friends",
+  "🛸 Loading friendship memories from all timelines...",
+];
+
+    function playBirthday() {
+      const song = document.getElementById("song");
+      song.play();
+      launchConfetti();
+    }
+
+    function surprise() {
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quoteText").textContent = q;
+      launchConfetti();
+      alert("🛸 Mensagem do multiverso recebida para Grazzi!");
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = ["#ff61c7", "#ffe66d", "#5ee7ff", "#ffffff", "#9b7cff"][Math.floor(Math.random() * 5)];
+        c.style.animationDelay = Math.random() * .6 + "s";
+        c.style.transform = "rotate(" + Math.random() * 180 + "deg)";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3500);
+      }
+    }
+
+const toggle =
+  document.getElementById("toggleFriends");
+
+const friendsCard =
+  document.getElementById("friendsCard");
+
+const status =
+  document.getElementById("friendsStatus");
+
+toggle.addEventListener("change", () => {
+
+  if (toggle.checked) {
+
+    friendsCard.classList.add("active");
+
+    status.innerHTML =
+      "Modo Friends ativado";
+
+    explode();
+
+  } else {
+
+    friendsCard.classList.remove("active");
+
+    status.innerHTML =
+      "Desativado";
+
+  }
+
+});
+
+function explode() {
+
+  for (let i = 0; i < 70; i++) {
+
+    const spark =
+      document.createElement("div");
+
+    spark.style.position = "fixed";
+
+    spark.style.left =
+      Math.random() * 100 + "vw";
+
+    spark.style.top =
+      Math.random() * 100 + "vh";
+
+    spark.style.width = "10px";
+    spark.style.height = "10px";
+
+    spark.style.borderRadius = "50%";
+
+    spark.style.pointerEvents = "none";
+
+    spark.style.background =
+      ["#ff66c4","#ffe066","#66e3ff","#ffffff"]
+      [Math.floor(Math.random()*4)];
+
+    spark.style.zIndex = "9999";
+
+    document.body.appendChild(spark);
+
+    spark.animate(
+      [
+        {
+          transform: "scale(1)",
+          opacity: 1
+        },
+        {
+          transform:
+            `translate(
+              ${(Math.random()-.5)*600}px,
+              ${(Math.random()-.5)*600}px
+            ) scale(0)`,
+          opacity: 0
+        }
+      ],
+      {
+        duration: 1200,
+        easing: "ease-out"
+      }
+    );
+
+    setTimeout(() => spark.remove(), 1200);
+
+  }
+
+}
+function activateHappiness() {
+
+  const bar =
+    document.getElementById("happinessBar");
+
+  const text =
+    document.getElementById("happinessText");
+
+  bar.style.width = "100%";
+
+  text.innerHTML =
+    "Felicidade infinita desbloqueada";
+
+  explode();
+
+}
+function launchRocket() {
+
+  const rocket =
+    document.getElementById("rocket");
+
+  const status =
+    document.getElementById("travelStatus");
+
+  rocket.classList.remove("launch");
+
+  void rocket.offsetWidth;
+
+  rocket.classList.add("launch");
+
+  status.innerHTML =
+    "Viagem autorizada com sucesso";
+
+  explode();
+
+}
+</script>
+</body>
+</html>
